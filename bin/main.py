@@ -44,10 +44,12 @@ if __name__ == '__main__':
             logger.info("Guardamos los datos en parquet con compresión gzip")
             loadData.loadCryptoToParquet(conf["DEFAULT"]["res_path"] + str("/out/cryptoData.parquet.gzip"),
                                          scr.resultDataframe, "gzip")
+            print("Guardamos los datos en parquet con compresión gzip")
         except:
             logger.info("Guardamos los datos en Csv")
             loadData.loadCryptoToCsv(conf["DEFAULT"]["res_path"] + str(f"{os.sep}out{os.sep}cryptoData.csv"),
                                      scr.resultDataframe)
+            print("Guardamos los datos en Csv")
 
         print("Fin tarea a las " + str(datetime.utcnow()) + "UTC")
         print("Tiempo tomado para la tarea: " + str(datetime.utcnow() - dtimeInicio))
