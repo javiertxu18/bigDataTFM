@@ -1,9 +1,11 @@
 # bigDataTFM
 Este repositorio contiene el trabajo de fin de máster (TFM)
 
-## IBEX35 Reader
+## Crypto Reader
 
 Este proyecto es una idea de TFM en el que mediante web scrapping saco
-información de la siguiente web sobre el ibex35:
+información de la siguiente web sobre las criptomonedas:
 
-https://www.bolsamadrid.es/esp/aspx/Mercados/Precios.aspx?indice=ESI100000000&punto=indice
+"https://www.estrategiasdeinversion.com/cotizaciones/criptomonedas"
+
++Nota: El proyecto puede cambiar de aquí a junio, todavía estoy buscando ideas para el TFM+
