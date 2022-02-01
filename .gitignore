@@ -2,7 +2,8 @@
 .idea
 
 # Ficheros
-src/main/res/out/*
+src/main/res/out/*.parquet.*
+src/main/res/out/*.csv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
