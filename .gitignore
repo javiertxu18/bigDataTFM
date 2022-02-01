@@ -1,6 +1,9 @@
 # Idea de Pycharm
 .idea
 
+# Ficheros parquet
+src/main/res/out/cryptoData.parquet.gzip
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

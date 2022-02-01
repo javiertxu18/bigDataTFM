@@ -1,51 +1,35 @@
-import sys
-from src.main.scripts.objects.scrapping.Scrapper import Scrapper
 import pandas as pd
-from datetime import datetime
+
+import src.main.scripts.functions.etl.extraction as extrData
+import src.main.scripts.functions.etl.transform as transData
+import src.main.scripts.functions.etl.load as loadData
+from src.main.scripts.functions import inOut as inOutFunctions
+from src.main.scripts.functions import general as generalFunctions
 
 if __name__ == '__main__':
+    # Configuración inicial
+    inOutFunctions.setConfig()
 
-    # Inicializamos un objeto de tipo Scrapper
-    scr = Scrapper("https://www.estrategiasdeinversion.com/cotizaciones/criptomonedas")
+    # Creación del logger
+    logger = generalFunctions.getLogger("main")
 
-    # Aplicamos sus funciones para sacar los datos que nos interesan
-    scr.find("table", "class_", "tbl tbl-cn-3", "soup")
-    scr.findAll("tr", "result")
+    # Leemos el fichero config
+    conf = inOutFunctions.readConfig()
 
-    results = scr.result
-    lstResults = []
+    logger.info("Inicio de programa")
 
-    timestamp = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
+    # Extraemos los datos
+    logger.info("Extraemos los datos")
+    scr = extrData.getCryptoData()
 
-    colnames = [
-        'name',
-        'last',
-        'variation',
-        'variation %',
-        'max',
-        'min',
-        'value time (UTC)',
-        'timestamp(UTC)'
-    ]
+    # Transformamos los datos y los guardamos en un dataFrame
+    logger.info("Transformamos los datos y los guardamos en un dataFrame")
+    scr.resultDataframe = transData.transformCrypto(scr)
 
-    for row in results[1:]:
-        col = list(row.find_all("td"))
-        temp = []
-        temp.append(str(col[0]).split('">')[1].split("</")[0])
-        temp.append(str(col[1]).split('">')[1].split("</")[0].replace(".","").replace(",","."))
-        temp.append(str(col[2]).split('">')[1].split("</")[0].replace(",","."))
-        temp.append(str(col[3]).split('">')[1].split("</")[0].replace(",",".").replace("%",""))
-        temp.append(str(col[4]).split('>')[1].split("</")[0].replace(",","."))
-        temp.append(str(col[5]).split('>')[1].split("</")[0].replace(",","."))
-        temp.append(str(col[6]).split('\n')[1].split("\n")[0].strip())
-        temp.append(str(timestamp))
+    # Los guardamos
+    logger.info("Guardamos los datos en parquet con compresión gzip")
+    loadData.loadCrypto(conf["DEFAULT"]["res_path"]+str("/out/cryptoData.parquet.gzip"), scr.resultDataframe, "gzip")
 
-        print(datetime.strptime(temp[6], '%H:%M:%S'))
-
-        lstResults.append(temp)
-
-    scr.resultDataframe = pd.DataFrame(lstResults, columns=colnames)
-
-    print(scr.resultDataframe)
+    logger.info("Fin de programa")
 
 
