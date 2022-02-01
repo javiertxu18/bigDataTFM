@@ -18,12 +18,15 @@ def loadCrypto(path, df, compression="gzip"):
     :return: True si ha ido bien, False si ha ido mal
     """
 
-    logger.debug("Cargamos el contenido del parquet en un dataframe")
-    print(path)
-    dfExtr = pd.read_parquet(path)
+    try:
+        logger.debug("Cargamos el contenido del parquet en un dataframe")
+        print(path)
+        dfExtr = pd.read_parquet(path)
 
-    logger.debug("Juntamos los dataframes")
-    df = pd.concat([df,dfExtr], axis=0)
+        logger.debug("Juntamos los dataframes")
+        df = pd.concat([df,dfExtr], axis=0)
+    except:
+        pass
 
     logger.info("Guardamos el df extraído y transformado en un parquet.")
     inOutFunc.saveParquet(path, df, compression)
