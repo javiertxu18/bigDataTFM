@@ -29,8 +29,8 @@ def loadCryptoToParquet(path, df, compression="gzip"):
         logger.info("Guardamos el df extraído y transformado en un parquet.")
         inOutFunc.saveParquet(path, df, compression)
         logger.info("Guardado correctamente.")
-    except Excecption as e:
-        return e
+    except Exception as e:
+        raise Exception
 
 
 def loadCryptoToCsv(path, df):
