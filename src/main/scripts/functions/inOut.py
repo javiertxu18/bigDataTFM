@@ -96,5 +96,4 @@ def saveParquet(path, df, compression="gzip"):
         return True
     except Exception as e:
         logger.error("Error al transformar df a parquet: " + str(e))
-        return False
-        pass
+        raise e

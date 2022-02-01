@@ -42,10 +42,11 @@ if __name__ == '__main__':
         # Los guardamos en parquet si se puede. En csv si no se puede
         try:
             logger.info("Guardamos los datos en parquet con compresión gzip")
-            loadData.loadCryptoToParquet(conf["DEFAULT"]["res_path"] + str("/out/cryptoData.parquet.gzip"),
+            loadData.loadCryptoToParquet(conf["DEFAULT"]["res_path"] + str(f"{os.sep}out{os.sep}cryptoData.parquet.gzip"),
                                          scr.resultDataframe, "gzip")
             print("Guardamos los datos en parquet con compresión gzip")
-        except:
+        except Exception as e:
+            logger.warning("No se ha podido guardar en parquet, intentado CSV: " + str(e))
             logger.info("Guardamos los datos en Csv")
             loadData.loadCryptoToCsv(conf["DEFAULT"]["res_path"] + str(f"{os.sep}out{os.sep}cryptoData.csv"),
                                      scr.resultDataframe)

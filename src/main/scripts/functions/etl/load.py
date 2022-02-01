@@ -20,17 +20,22 @@ def loadCryptoToParquet(path, df, compression="gzip"):
     """
 
     try:
-        logger.debug("Cargamos el contenido del parquet en un dataframe")
-        dfExtr = pd.read_parquet(path)
+        try:
+            # Esto se ejecuta cuando no hay ningún parquet
+            logger.debug("Cargamos el contenido del parquet en un dataframe")
+            dfExtr = pd.read_parquet(path)
 
-        logger.debug("Juntamos los dataframes")
-        df = pd.concat([df, dfExtr], axis=0)
+            logger.debug("Juntamos los dataframes")
+            df = pd.concat([df, dfExtr], axis=0)
+        except:
+            pass
 
         logger.info("Guardamos el df extraído y transformado en un parquet.")
         inOutFunc.saveParquet(path, df, compression)
         logger.info("Guardado correctamente.")
-    except Excecption as e:
-        return e
+    except Exception as e:
+        logger.error("Error en load: " + str(e))
+        raise e
 
 
 def loadCryptoToCsv(path, df):
