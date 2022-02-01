@@ -1,7 +1,14 @@
 import logging
-import sys
 from multipledispatch import dispatch
 from src.main.scripts.functions import inOut
+
+import os
+import sys
+
+# Dependiendo del so busca en un path o en otro
+pathNum = 1
+if os.name != "nt":
+    pathNum = -1
 
 # DESC: Prepara el logger
 # Params:
@@ -12,7 +19,7 @@ from src.main.scripts.functions import inOut
 def setLogger():
     try:
         logging.basicConfig(
-            filename=sys.path[1] + "/.log",  # Fichero donde vamos a guardar la info
+            filename=sys.path[pathNum] + "/.log",  # Fichero donde vamos a guardar la info
             filemode="a",  # Modo en el que vamos a guardar la info (append)
             format='%(asctime)s %(levelname)s(%(name)s) '
                    '%(filename)s:line(%(lineno)s) '

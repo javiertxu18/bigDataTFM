@@ -7,6 +7,13 @@ from src.main.scripts.functions import general as generalFunctions
 from datetime import datetime
 import time
 
+import os
+import sys
+if os.name != "nt":
+    # Preparamos el path para que busque los recursos
+    sys.path.append(os.path.abspath(os.getcwd()))
+    # print("PATH SYS" + str(sys.path))
+
 if __name__ == '__main__':
 
     # Configuración inicial
