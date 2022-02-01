@@ -9,11 +9,6 @@ from src.main.scripts.functions import general as general
 import os
 import sys
 
-# Dependiendo del so busca en un path o en otro
-pathNum = 1
-if os.name != "nt":
-    pathNum = -1
-
 # Creamos el logger
 logger = general.getLogger("inOutFunc")
 
@@ -40,12 +35,12 @@ def setConfig(logger_level=30):
         # Preparamos el configParser
         conf = configparser.ConfigParser()
         # Leemos el fichero config.ini
-        conf.read(sys.path[pathNum] + "/config.ini")
+        conf.read(sys.path[0] + os.sep + "config.ini")
         # Escribimos en el configParser (No en el fichero)
         conf['DEFAULT']['so_name'] = os.name
-        conf['DEFAULT']['root_path'] = sys.path[pathNum]
-        conf['DEFAULT']['config_path'] = conf['DEFAULT']['root_path'] + "/config.ini"
-        conf['DEFAULT']['res_path'] = conf['DEFAULT']['root_path'] + "/src/main/res"
+        conf['DEFAULT']['root_path'] = sys.path[0]
+        conf['DEFAULT']['config_path'] = conf['DEFAULT']['root_path'] + os.sep + "config.ini"
+        conf['DEFAULT']['res_path'] = conf['DEFAULT']['root_path'] + f"{os.sep}src{os.sep}main{os.sep}res"
         conf['DEFAULT']['logger_level'] = str(logger_level)  # Nivel del logger por defecto
 
         # Sobreescribimos el fichero y guardamos la info nueva
@@ -71,7 +66,7 @@ def readConfig():
         # Preparamos el configParser
         conf = configparser.ConfigParser()
         # Leemos el fichero config.ini
-        conf.read(sys.path[pathNum] + "/config.ini")
+        conf.read(sys.path[0] + os.sep + "config.ini")
         # Retornamos el configParser
         return conf
     except Exception as e:
