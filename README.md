@@ -1,11 +1,10 @@
-# bigDataTFM
-Este repositorio contiene el trabajo de fin de máster (TFM)
-
-## Crypto Reader
+## CryptoSim
 
 Este proyecto es una idea de TFM en el que mediante web scrapping saco
 información de la siguiente web sobre las criptomonedas:
 
 "https://www.estrategiasdeinversion.com/cotizaciones/criptomonedas"
 
-+Nota: El proyecto puede cambiar de aquí a junio, todavía estoy buscando ideas para el TFM+
+Eventualmente se añadirá machine learning al proyecto y una simulación de distintos usuarios generados aleatoriamente.
+
++Nota: En caso de no hacer un TFM de esta idea, iré añadiendo código a medida tenga tiempo como proyecto personal.+
